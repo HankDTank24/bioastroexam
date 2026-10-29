@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bioastronautics Quiz Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --surface:#ffffff; --surface-2:#f0ede6; --ink:#1d2329; --muted:#5d6670; --line:#e1ddd3;
+  --accent:#1f5f8b; --accent-ink:#ffffff; --accent-soft:#e3eef6;
+  --good:#1e7a4c; --good-soft:#e2f3ea; --bad:#b3362b; --bad-soft:#fbe7e4; --warn:#8a5a00; --warn-soft:#fdf1d8;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171b; --surface:#1c2026; --surface-2:#232830; --ink:#e7e9ec; --muted:#9aa3ad; --line:#2e343c;
+    --accent:#6fb0de; --accent-ink:#0d1a24; --accent-soft:#1d3142;
+    --good:#5cc995; --good-soft:#163326; --bad:#f08a7e; --bad-soft:#3a1d1a; --warn:#e8b75a; --warn-soft:#352a14;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171b; --surface:#1c2026; --surface-2:#232830; --ink:#e7e9ec; --muted:#9aa3ad; --line:#2e343c;
+  --accent:#6fb0de; --accent-ink:#0d1a24; --accent-soft:#1d3142;
+  --good:#5cc995; --good-soft:#163326; --bad:#f08a7e; --bad-soft:#3a1d1a; --warn:#e8b75a; --warn-soft:#352a14;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.brand .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.brand h1{margin:2px 0 0;font:600 26px/1.2 "Source Serif 4",Georgia,serif}
+.iconbtn{white-space:nowrap;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+.iconbtn:hover{border-color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px}
+.card + .card, .card + .grid, .grid + .card{margin-top:16px}
+h2{font:600 19px/1.3 "Source Serif 4",Georgia,serif;margin:0 0 10px}
+.muted{color:var(--muted)} .small{font-size:13px}
+.btn{border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hidden{display:none !important}
+
+/* home */
+.exammap{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.examq{background:var(--surface-2);border-radius:12px;padding:10px 12px;font-size:14px}
+.examq b{display:block;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.qcard{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px;cursor:pointer;font:inherit;color:inherit;transition:border-color .12s,transform .12s}
+.qcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.qcard .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.tag{border-radius:6px;padding:3px 8px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:12px;white-space:nowrap}
+.tag.tf{background:var(--warn-soft);color:var(--warn)}
+.tag.plain{background:var(--surface-2);color:var(--muted)}
+.qcard h3{margin:0;font:600 17px/1.3 "Source Serif 4",Georgia,serif}
+.qcard p{margin:0;font-size:14px;color:var(--muted)}
+.qcard .foot{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+.best{font-weight:600}
+.best.good{color:var(--good)} .best.mid{color:var(--warn)} .best.low{color:var(--bad)}
+details.formulas summary{cursor:pointer;font:600 19px/1.3 "Source Serif 4",Georgia,serif;list-style:none}
+details.formulas summary::-webkit-details-marker{display:none}
+details.formulas summary::after{content:" ▾";color:var(--muted);font-size:15px}
+details.formulas[open] summary::after{content:" ▴"}
+.ftable{display:grid;gap:10px;margin-top:14px}
+.frow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(170px,1.1fr) 2fr;gap:12px;padding:10px 12px;border-radius:10px;background:var(--surface-2);font-size:14px;align-items:center}
+.frow .fx{font:600 15px/1.4 "Source Serif 4",Georgia,serif}
+.frow .nm{font-weight:600}
+
+/* quiz */
+.progress{height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden;margin-bottom:14px}
+.progress > div{height:100%;background:var(--accent);width:0}
+.qmeta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;font-size:13px}
+.qtext{font:400 19px/1.5 "Source Serif 4",Georgia,serif;margin:0 0 16px}
+.tfhint{font-size:13.5px;background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:8px 12px;margin:-4px 0 14px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts.tf{flex-direction:row}
+.opts.tf .opt{justify-content:center;font-weight:600;font-size:17px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px 14px;font:inherit;font-size:15.5px;cursor:pointer;transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+.opt:disabled{cursor:default}
+.opt .letter{flex:0 0 28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);font-weight:700;font-size:13px}
+.opt .otext{padding-top:2px}
+.opt.correct{border-color:var(--good);background:var(--good-soft)}
+.opt.correct .letter{background:var(--good);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .letter{background:var(--bad);color:#fff}
+.opt.dim{opacity:.6}
+.feedback{margin-top:18px;border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.feedback .verdict{font-weight:700;font-size:16px;margin-bottom:6px}
+.feedback.good{border-color:var(--good);background:var(--good-soft)} .feedback.good .verdict{color:var(--good)}
+.feedback.bad{border-color:var(--bad);background:var(--bad-soft)} .feedback.bad .verdict{color:var(--bad)}
+.feedback p{margin:8px 0 0}
+.feedback .sub{font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:12px}
+details.others{margin-top:12px}
+details.others summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--accent)}
+details.others ul{margin:8px 0 0;padding-left:20px}
+details.others li{margin:4px 0;font-size:14.5px}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap}
+.kbd{font-size:12px;color:var(--muted)}
+.kbd kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font:12px ui-monospace,monospace;background:var(--surface)}
+
+/* results */
+.score{font:600 48px/1 "Source Serif 4",Georgia,serif;margin:6px 0}
+.missed-list{margin:12px 0 0;padding-left:20px}
+.missed-list li{margin:8px 0;font-size:14.5px}
+.ref{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--surface);border:1px dashed var(--line);font-size:14px}
+.ref .sub2{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:block;margin-bottom:4px}
+.ref .file{font-weight:600}
+.ref .note{display:block;margin-top:4px;color:var(--muted);font-size:13px}
+.fref{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
+footer{margin-top:28px;text-align:center;font-size:13px;color:var(--muted)}
+@media (max-width:640px){
+  .brand h1{font-size:22px}
+  .grid{grid-template-columns:1fr}
+  .exammap{grid-template-columns:repeat(2,1fr)}
+  .frow{grid-template-columns:1fr}
+  .qtext{font-size:17.5px}
+  .card{padding:18px}
+  .kbd{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="kicker" id="kicker"></span>
+      <h1 id="pageTitle"></h1>
+    </div>
+    <button class="iconbtn" id="themeBtn" title="Toggle light/dark">◐ Theme</button>
+  </header>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="card">
+      <h2>What's on the quiz</h2>
+      <div class="exammap">
+        <div class="examq"><b>Q1 · Multiple choice</b>CV system with simple calcs: resistance, SV, CO (HR × SV and Fick), EF</div>
+        <div class="examq"><b>Q2</b>The cross-bridge cycle</div>
+        <div class="examq"><b>Q3 · True/False + explain</b>Muscle spindles</div>
+        <div class="examq"><b>Q4</b>Countermeasures</div>
+      </div>
+    </div>
+
+    <div class="grid" id="quizGrid"></div>
+
+    <div class="card">
+      <details class="formulas" id="formulaBox">
+        <summary>Formula sheet (with the slide examples)</summary>
+        <div class="ftable" id="formulaTable"></div>
+        <p class="muted small" style="margin:12px 0 0">SV = EDV − ESV and EF = SV/EDV are the standard definitions your professor named for the quiz; on the slides, SV is the width of the PV loop.</p>
+      </details>
+    </div>
+    <div class="row" style="margin-top:14px;justify-content:flex-end">
+      <button class="btn ghost" id="resetBtn">Reset all scores</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="progress"><div id="progFill"></div></div>
+    <div class="card">
+      <div class="qmeta">
+        <div class="row" id="qTags"></div>
+        <span class="muted" id="qCounter"></span>
+      </div>
+      <div class="qtext" id="qText"></div>
+      <div class="tfhint hidden" id="tfHint">Real quiz format: True/False <b>+ explain</b>. Say your one-line reason out loud before you click, then compare it with the model explanation.</div>
+      <div class="opts" id="qOpts"></div>
+      <div id="qFeedback"></div>
+      <div class="navrow">
+        <button class="btn ghost" id="quitBtn">← All quizzes</button>
+        <span class="kbd" id="kbdHint"></span>
+        <button class="btn" id="nextBtn" disabled>Next →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="card">
+      <div class="muted small" id="rTitle"></div>
+      <div class="score" id="rScore"></div>
+      <div class="muted" id="rNote"></div>
+    </div>
+    <div class="card" id="rMissedCard">
+      <h2>Review what you missed</h2>
+      <ol class="missed-list" id="rMissed"></ol>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="retryMissed">Retry missed</button>
+      <button class="btn" id="nextQuiz">Next quiz →</button>
+      <button class="btn ghost" id="retake">Retake this quiz</button>
+      <button class="btn ghost" id="backBtn">All quizzes</button>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script src="questions.js"></script>
+<script>
+(function(){
+  const LETTERS = "abcdefgh";
+  const STORE_KEY = "bioastro-quizprep-v2";
+  const $ = id => document.getElementById(id);
+  $("kicker").textContent = COURSE.kicker; $("pageTitle").textContent = COURSE.title; $("footer").textContent = COURSE.footer;
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }catch(e){ return {}; } }
+  function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }catch(e){} }
+  let store = load(); store.quiz = store.quiz || {}; store.prefs = store.prefs || {};
+
+  function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); }
+  applyTheme(store.prefs.theme);
+  $("themeBtn").onclick = () => {
+    const dark = store.prefs.theme ? store.prefs.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    store.prefs.theme = dark ? "light" : "dark"; applyTheme(store.prefs.theme); save();
+  };
+
+  const qsFor = id => QUESTIONS.filter(q => q.quiz === id);
+  const plain = s => s.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+  const refText = refs => (refs || []).map(([f,pg]) => `<span class="file">${FILES[f]}</span>, ${pg.match(/[,–]/) ? "pp." : "p."} ${pg}`).join("; ");
+  function refHTML(id){
+    const r = REFS[id]; if(!r) return "";
+    const note = REF_NOTES[id] ? `<span class="note">${REF_NOTES[id]}</span>` : "";
+    return `<div class="ref"><span class="sub2">📍 Where it is in the slides</span>${refText(r)}${note}</div>`;
+  }
+
+  // ---------- home ----------
+  function renderHome(){
+    const grid = $("quizGrid"); grid.innerHTML = "";
+    QUIZZES.forEach(z => {
+      const n = qsFor(z.id).length, s = store.quiz[z.id];
+      const b = document.createElement("button"); b.className = "qcard";
+      let best = `<span class="muted">Not attempted</span>`;
+      if(s && s.best != null){
+        const cls = s.best >= 85 ? "good" : s.best >= 65 ? "mid" : "low";
+        best = `<span>Best <span class="best ${cls}">${s.best}%</span> · Last ${s.last}%</span>`;
+      }
+      const isTF = qsFor(z.id).every(q => q.tf);
+      b.innerHTML = `<div class="top"><span class="num">${z.num}</span><span class="tag ${isTF ? "tf" : z.id === "mock" ? "plain" : ""}">${z.examQ}</span></div>
+        <h3>${z.title}</h3><p>${z.desc}</p>
+        <div class="foot"><span class="muted">${n} questions</span>${best}</div>`;
+      b.onclick = () => startQuiz(z.id);
+      grid.appendChild(b);
+    });
+    $("formulaTable").innerHTML = FORMULAS.map((f, i) => `<div class="frow"><span class="nm">${f.name}</span><span class="fx">${f.f}</span><span>${f.ex}${FORMULA_REFS[i] && FORMULA_REFS[i].length ? `<span class="fref">📍 ${refText(FORMULA_REFS[i])}</span>` : `<span class="fref">Standard definition (not on the slides)</span>`}</span></div>`).join("");
+  }
+  let armed = false;
+  $("resetBtn").onclick = () => {
+    if(!armed){ armed = true; $("resetBtn").textContent = "Click again to confirm"; setTimeout(()=>{armed=false; $("resetBtn").textContent="Reset all scores";},3000); return; }
+    armed = false; $("resetBtn").textContent = "Reset all scores"; store.quiz = {}; save(); renderHome();
+  };
+
+  // ---------- quiz ----------
+  const NO_SHUFFLE = /(all of the above|^none$)/i;
+  function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function canShuffle(q){ return !q.tf && !q.opts.some(o => NO_SHUFFLE.test(plain(o))); }
+
+  let session = null;
+  function startQuiz(id, subset){
+    const list = subset || qsFor(id);
+    session = { id, partial: !!subset, items: shuffle(list).map(q => ({ q, order: canShuffle(q) ? shuffle(q.opts.map((_,i)=>i)) : q.opts.map((_,i)=>i), picked:null })), i:0 };
+    show("quiz"); renderQ();
+  }
+  function show(id){ ["home","quiz","results"].forEach(s => $(s).classList.toggle("hidden", s !== id)); window.scrollTo({top:0}); }
+
+  function renderQ(){
+    const it = session.items[session.i], q = it.q, z = QUIZZES.find(z => z.id === session.id);
+    $("progFill").style.width = (100*session.i/session.items.length) + "%";
+    $("qCounter").textContent = `Question ${session.i+1} of ${session.items.length}`;
+    $("qTags").innerHTML = `<span class="tag plain">Quiz ${z.num}</span><span class="tag ${q.tf ? "tf" : ""}">${q.tf ? "True / False + explain" : z.title}</span>`;
+    $("qText").innerHTML = q.q;
+    $("tfHint").classList.toggle("hidden", !q.tf);
+    const box = $("qOpts"); box.innerHTML = ""; box.classList.toggle("tf", !!q.tf);
+    it.order.forEach((orig, pos) => {
+      const b = document.createElement("button"); b.className = "opt"; b.dataset.orig = orig;
+      b.innerHTML = q.tf ? `<span class="otext">${q.opts[orig]}</span>` : `<span class="letter">${LETTERS[pos].toUpperCase()}</span><span class="otext">${q.opts[orig]}</span>`;
+      b.onclick = () => answer(orig); box.appendChild(b);
+    });
+    $("kbdHint").innerHTML = q.tf ? `Keys: <kbd>T</kbd> / <kbd>F</kbd> · <kbd>Enter</kbd> next` : `Keys: <kbd>A</kbd>–<kbd>${LETTERS[it.order.length-1].toUpperCase()}</kbd> · <kbd>Enter</kbd> next`;
+    $("qFeedback").innerHTML = ""; $("nextBtn").disabled = true;
+    $("nextBtn").textContent = session.i === session.items.length-1 ? "See results →" : "Next →";
+  }
+  const letterOf = (it, orig) => it.q.tf ? it.q.opts[orig] : LETTERS[it.order.indexOf(orig)].toUpperCase();
+
+  function answer(orig){
+    const it = session.items[session.i], q = it.q;
+    if(it.picked !== null) return;
+    it.picked = orig;
+    const right = orig === q.ans;
+    document.querySelectorAll("#qOpts .opt").forEach(b => {
+      const o = +b.dataset.orig; b.disabled = true;
+      if(o === q.ans) b.classList.add("correct"); else if(o === orig) b.classList.add("wrong"); else b.classList.add("dim");
+    });
+    const L = letterOf(it, q.ans);
+    let h = `<div class="feedback ${right ? "good" : "bad"}"><div class="verdict">${right ? "✓ Correct!" : `✗ Not quite. The answer is ${L}.`}</div>`;
+    if(!right && !q.tf && q.why && q.why[orig]) h += `<div class="sub">Why ${letterOf(it, orig)} is wrong</div><p>${q.why[orig]}</p>`;
+    h += `<div class="sub">${q.tf ? "Model explanation" : `Why ${L} is right`}</div><p>${q.exp}</p>`;
+    if(q.why && !q.tf){
+      const others = it.order.filter(o => o !== q.ans && o !== orig && q.why[o]);
+      if(others.length) h += `<details class="others"><summary>Why the other choices are wrong</summary><ul>${others.map(o => `<li><b>${letterOf(it,o)}.</b> ${q.why[o]}</li>`).join("")}</ul></details>`;
+    }
+    $("qFeedback").innerHTML = h + refHTML(q.id) + `</div>`;
+    $("nextBtn").disabled = false; $("nextBtn").focus({preventScroll:true});
+  }
+  function next(){
+    if(session.items[session.i].picked === null) return;
+    if(session.i < session.items.length-1){ session.i++; renderQ(); window.scrollTo({top:0,behavior:"smooth"}); }
+    else results();
+  }
+  $("nextBtn").onclick = next;
+  $("quitBtn").onclick = () => { renderHome(); show("home"); };
+  document.addEventListener("keydown", e => {
+    if($("quiz").classList.contains("hidden") || e.metaKey || e.ctrlKey || e.altKey) return;
+    const it = session.items[session.i], k = e.key.toLowerCase();
+    if(it.picked === null){
+      if(it.q.tf && (k === "t" || k === "f")){ answer(k === "t" ? 0 : 1); e.preventDefault(); return; }
+      const idx = it.q.tf ? -1 : LETTERS.indexOf(k);
+      if(idx >= 0 && idx < it.order.length){ answer(it.order[idx]); e.preventDefault(); }
+    } else if(k === "enter" || k === "arrowright"){ next(); e.preventDefault(); }
+  });
+
+  let lastMissed = [];
+  function results(){
+    const z = QUIZZES.find(z => z.id === session.id);
+    const done = session.items.filter(it => it.picked !== null);
+    const ok = done.filter(it => it.picked === it.q.ans).length;
+    lastMissed = done.filter(it => it.picked !== it.q.ans).map(it => it.q);
+    const pct = done.length ? Math.round(100*ok/done.length) : 0;
+    if(!session.partial && done.length === session.items.length){
+      const s = store.quiz[z.id] || {}; s.last = pct; s.best = Math.max(s.best || 0, pct); store.quiz[z.id] = s; save();
+    }
+    $("rTitle").textContent = `Quiz ${z.num}: ${z.title}${session.partial ? " (missed-question retry)" : ""}`;
+    $("rScore").textContent = `${ok} / ${done.length} · ${pct}%`;
+    $("rNote").textContent = pct >= 90 ? "Excellent. You're ready for this one." : pct >= 70 ? "Solid. Review the misses below, then retry them." : "Keep going. Retry the missed ones until they stick.";
+    $("rMissedCard").classList.toggle("hidden", !lastMissed.length);
+    $("rMissed").innerHTML = lastMissed.map(q => {
+      const t = plain(q.q);
+      return `<li>${t.length > 150 ? t.slice(0,150)+"…" : t}<br><span class="muted">Answer: ${plain(q.opts[q.ans])}</span><br><span class="muted small">📍 ${refText(REFS[q.id])}</span></li>`;
+    }).join("");
+    $("retryMissed").classList.toggle("hidden", !lastMissed.length);
+    const idx = QUIZZES.indexOf(z);
+    $("nextQuiz").classList.toggle("hidden", idx === QUIZZES.length-1);
+    $("progFill").style.width = "100%";
+    show("results");
+  }
+  $("retryMissed").onclick = () => startQuiz(session.id, lastMissed);
+  $("retake").onclick = () => startQuiz(session.id);
+  $("nextQuiz").onclick = () => { const i = QUIZZES.findIndex(z => z.id === session.id); startQuiz(QUIZZES[i+1].id); };
+  $("backBtn").onclick = () => { renderHome(); show("home"); };
+
+  renderHome();
+})();
+</script>
+</body>
+</html>
